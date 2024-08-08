@@ -7,6 +7,7 @@ public class Điểm_cao : MonoBehaviour
     public TextMeshProUGUI điểm_cao_nhất;
     public TextMeshProUGUI điểm_hiện_tại;
 
+
     private int điểm_cao;
 
     void Start()
@@ -30,11 +31,23 @@ public class Điểm_cao : MonoBehaviour
     void Update()
     {
         int điểm = int.Parse(điểm_hiện_tại.text);
+        if (điểm >=300)
+        {
+            StartCoroutine(Quản_lý.instance.AchievementUnlocked("Score 300"));
+        }
+        if(điểm>= 500)
+        {
+            StartCoroutine(Quản_lý.instance.AchievementUnlocked("Score 600"));
+        }
 
         if (điểm > điểm_cao)
         {
             // Cập nhật highScoreValue và hiển thị giá trị mới trên hscore.text
             điểm_cao = điểm;
+            if (điểm_cao > 1000)
+            {
+                điểm_cao = 1000;
+            }
             điểm_cao_nhất.text = điểm_cao.ToString();
 
             // Lưu giá trị high score vào bộ nhớ cục bộ
