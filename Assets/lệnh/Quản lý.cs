@@ -11,7 +11,7 @@ public class Quản_lý : MonoBehaviour
 
     public GameObject achievementPrefab;
     public TextMeshProUGUI achievementText;
-    void Awake()
+    void Start()
     {
         Time.timeScale = 1;
         if (instance == null)
@@ -22,6 +22,10 @@ public class Quản_lý : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        //Equip trail for player base on transform
+        int playerTrail = PlayerPrefs.GetInt("Equipped Trail", 0);
+        di_chuyển.instance.EquipTrail(playerTrail);
     }
     public IEnumerator AchievementUnlocked(string achievement)
     {
@@ -41,14 +45,15 @@ public class Quản_lý : MonoBehaviour
     }
     public IEnumerator chiến_thắng()
     {
-       StartCoroutine(AchievementUnlocked("Beat the game"));
+        StartCoroutine(AchievementUnlocked("Beat the game"));
         yield return new WaitForSeconds(0.25f);
         Chiến_thắng.SetActive(true);
-       Nhạc_nền.instance.YATTA();
+        Chiến_thắng.GetComponent<Animator>().Play("OpenUI");
+        Nhạc_nền.instance.YATTA();
        kết_thúc=true;
-       Time.timeScale = 0;
+        Time.timeScale = 0;
     }
-    bool thua=false;
+    bool thua = false;
     public void đã_thua()
     {
         if(thua == false) 

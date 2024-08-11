@@ -16,19 +16,28 @@ public class Tạm_dừng : MonoBehaviour
 
     public void tạm_dừng()
     {
-        pause.SetActive(!pause.activeSelf);//đảo giữa bật và tắt tạm dừng.
+        pause.SetActive(true);
+        di_chuyển.instance.rb.isKinematic = true;//isKinematic để vật không bị tác dụng bởi lực và dừng lại luôn
+        pause.SetActive(true);
+        pause.GetComponent<Animator>().Play("OpenUI");
+        Time.timeScale = 0f;//tạm dừng thời gian
 
-        if (pause.activeSelf)
-        {
-            di_chuyển.instance.rb.isKinematic = true;//isKinematic để vật không bị tác dụng bởi lực và dừng lại luôn
-            Time.timeScale = 0f;//tạm dừng thời gian
-        }
-        else
-        {
-            Time.timeScale = 1f;//chạy thời gian
-            chờ.instance.đếm_ngược();
-        }
     }
+
+    public void tiếp_tục()
+    {
+        Time.timeScale = 1f;//chạy thời gian
+        chờ.instance.đếm_ngược();
+        pause.GetComponent<Animator>().Play("CloseUI");
+        Invoke("closePause", 0.25f);
+    }
+
+    private void closePause()
+    {
+        pause.GetComponent<CanvasGroup>().alpha = 0;
+        pause.SetActive(false);
+    }
+    
     public void thử_lại()
     {
         tạm_dừng();
@@ -39,9 +48,5 @@ public class Tạm_dừng : MonoBehaviour
     {
         tạm_dừng();
         SceneManager.LoadScene("menu");
-    }
-    public void Thoát()
-    {
-        Application.Quit();
     }
 }

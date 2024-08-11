@@ -8,6 +8,7 @@ public class Menu : MonoBehaviour
     private int PlayerScore;
 
     public GameObject AchievementObject;
+    public GameObject TrailObject;
     void Start()
     {
         // Kiểm tra xem có giá trị điểm_cao đã được lưu trữ trước đó không
@@ -33,11 +34,38 @@ public class Menu : MonoBehaviour
     public void Achievement()
     {
         AchievementObject.SetActive(true);
+        AchievementObject.GetComponent<Animator>().Play("OpenUI");
     }
 
     public void CloseAchivement()
     {
+        AchievementObject.GetComponent<Animator>().Play("CloseUI");
+        Invoke("deactiveAchievementObject", 0.25f);
+    }
+
+    private void deactiveAchievementObject()
+    {
+        AchievementObject.GetComponent<CanvasGroup>().alpha = 0;
         AchievementObject.SetActive(false);
+    }
+
+    public void Trail()
+    {
+        TrailObject.SetActive(true);
+        TrailObject.GetComponent<Animator>().Play("OpenUI");
+    }
+
+    public void CloseTrail()
+    {
+        TrailObject.GetComponent<Animator>().Play("CloseUI");
+        Invoke("deActiveTrailObject", 0.25f);
+
+    }
+
+    private void deActiveTrailObject()
+    {
+        TrailObject.GetComponent<CanvasGroup>().alpha = 0;
+        TrailObject.SetActive(false);
     }
 
 }

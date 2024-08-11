@@ -35,7 +35,7 @@ public class Điểm_cao : MonoBehaviour
         {
             StartCoroutine(Quản_lý.instance.AchievementUnlocked("Score 300"));
         }
-        if(điểm>= 500)
+        if(điểm>= 600)
         {
             StartCoroutine(Quản_lý.instance.AchievementUnlocked("Score 600"));
         }
@@ -52,6 +52,7 @@ public class Điểm_cao : MonoBehaviour
 
             // Lưu giá trị high score vào bộ nhớ cục bộ
             PlayerPrefs.SetInt("Điểm cao", điểm_cao);
+            PlayerPrefs.Save();
         }
     }
 }

@@ -5,39 +5,27 @@ using UnityEngine.SceneManagement;
 
 public class AchievementSystem : MonoBehaviour
 {
-    // Singleton instance
-    private static AchievementSystem instance;
-
     // Define a dictionary to store the achievements and their unlock status
     private Dictionary<string, bool> achievements = new Dictionary<string, bool>();
 
     // List of text objects to display achievement states
     public List<TextMeshProUGUI> achievementTexts;
 
+    //singleton pattern
+    public static AchievementSystem instance;
     private void Awake()
     {
-        // Check if an instance already exists
         if (instance == null)
         {
-            // If not, set the instance to this
             instance = this;
         }
         else
         {
-            // If an instance already exists, destroy this instance
             Destroy(gameObject);
-            return;
         }
-
         InitializeAchievements();
         LoadAchievements();
         UpdateAchievementTexts();
-    }
-
-    // Function to get the singleton instance
-    public static AchievementSystem GetInstance()
-    {
-        return instance;
     }
 
     // Function to initialize the achievements
@@ -56,10 +44,7 @@ public class AchievementSystem : MonoBehaviour
     {
         achievements[achievement] = true;
         SaveAchievements();
-        if(Quản_lý.instance != null)
-        {
-            StartCoroutine(Quản_lý.instance.AchievementUnlocked(achievement));
-        }
+        Debug.Log("Achievement unlocked: " + achievement);
     }
 
     // Function to save the achievements
@@ -67,7 +52,7 @@ public class AchievementSystem : MonoBehaviour
     {
         foreach (var achievement in achievements)
         {
-            PlayerPrefs.SetInt(achievement.Key, achievement.Value ? 1 : 0);// 1 for true, 0 for false by achievement.Value
+            PlayerPrefs.SetInt(achievement.Key, achievement.Value ? 1 : 0);
         }
         PlayerPrefs.Save();
     }
@@ -99,5 +84,25 @@ public class AchievementSystem : MonoBehaviour
                 text.text = "Unlocked";
             }
         }
+    }
+
+    public void OpenItch()
+    {
+        Application.OpenURL("https://hoangson1908.itch.io/");
+        UnlockAchievement("Follow my itch");
+        UpdateAchievementTexts();
+    }
+
+    public int GetAchievementCount()
+    {
+        int count = 0;
+        foreach (var achievement in achievements)
+        {
+            if (achievement.Value)
+            {
+                count++;
+            }
+        }
+        return count;
     }
 }
