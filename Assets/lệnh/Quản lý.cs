@@ -11,6 +11,8 @@ public class Quản_lý : MonoBehaviour
 
     public GameObject achievementPrefab;
     public TextMeshProUGUI achievementText;
+
+    public GameObject[] MobileUI;
     void Start()
     {
         Time.timeScale = 1;
@@ -21,6 +23,21 @@ public class Quản_lý : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+        
+        if(Application.isMobilePlatform)
+        {
+            foreach(GameObject g in MobileUI)
+            {
+                g.SetActive(true);
+            }
+        }
+        else
+        {
+            foreach(GameObject g in MobileUI)
+            {
+                g.SetActive(false);
+            }
         }
 
         //Equip trail for player base on transform

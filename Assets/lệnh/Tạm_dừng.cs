@@ -18,7 +18,6 @@ public class Tạm_dừng : MonoBehaviour
     {
         pause.SetActive(true);
         di_chuyển.instance.rb.isKinematic = true;//isKinematic để vật không bị tác dụng bởi lực và dừng lại luôn
-        pause.SetActive(true);
         pause.GetComponent<Animator>().Play("OpenUI");
         Time.timeScale = 0f;//tạm dừng thời gian
 
@@ -28,13 +27,6 @@ public class Tạm_dừng : MonoBehaviour
     {
         Time.timeScale = 1f;//chạy thời gian
         chờ.instance.đếm_ngược();
-        pause.GetComponent<Animator>().Play("CloseUI");
-        Invoke("closePause", 0.25f);
-    }
-
-    private void closePause()
-    {
-        pause.GetComponent<CanvasGroup>().alpha = 0;
         pause.SetActive(false);
     }
     

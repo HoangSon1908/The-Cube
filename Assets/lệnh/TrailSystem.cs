@@ -19,7 +19,7 @@ public class TrailSystem : MonoBehaviour
         UpdateTrailTexts();
     }
 
-    private void OpenTrail()
+    public void OpenTrail()
     {
         int achievementUnlocked = AchievementSystem.instance.GetAchievementCount();
         if (achievementUnlocked >= 2)

@@ -39,13 +39,6 @@ public class Menu : MonoBehaviour
 
     public void CloseAchivement()
     {
-        AchievementObject.GetComponent<Animator>().Play("CloseUI");
-        Invoke("deactiveAchievementObject", 0.25f);
-    }
-
-    private void deactiveAchievementObject()
-    {
-        AchievementObject.GetComponent<CanvasGroup>().alpha = 0;
         AchievementObject.SetActive(false);
     }
 
@@ -57,15 +50,8 @@ public class Menu : MonoBehaviour
 
     public void CloseTrail()
     {
-        TrailObject.GetComponent<Animator>().Play("CloseUI");
-        Invoke("deActiveTrailObject", 0.25f);
-
-    }
-
-    private void deActiveTrailObject()
-    {
-        TrailObject.GetComponent<CanvasGroup>().alpha = 0;
         TrailObject.SetActive(false);
+
     }
 
 }
