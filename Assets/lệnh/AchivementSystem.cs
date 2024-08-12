@@ -91,6 +91,7 @@ public class AchievementSystem : MonoBehaviour
         Application.OpenURL("https://hoangson1908.itch.io/");
         UnlockAchievement("Follow my itch");
         UpdateAchievementTexts();
+        TrailSystem.instance.OpenTrail();
     }
 
     public int GetAchievementCount()

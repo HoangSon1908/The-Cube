@@ -10,13 +10,23 @@ public class TrailSystem : MonoBehaviour
 
     public List<TextMeshProUGUI> TrailTexts;
 
+    public static TrailSystem instance;
+
     private void Awake()
     {
+        if(instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        
         InitializeTrail();
         OpenTrail();
         LoadTrail();
         UnlockTrail("Default Trail");
-        UpdateTrailTexts();
     }
 
     public void OpenTrail()
@@ -30,6 +40,7 @@ public class TrailSystem : MonoBehaviour
         {
             UnlockTrail("Rainbow Trail");
         }
+        UpdateTrailTexts();
     }
 
     private void InitializeTrail()
